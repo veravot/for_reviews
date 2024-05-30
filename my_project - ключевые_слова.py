@@ -16,6 +16,14 @@ def normalize_text(filename: str):
         # предобработка текста(
     mystem = Mystem()
     russian_stopwords = stopwords.words("russian")
+    # добавляем в список стоп-слов сокращенные названия мер длины и веса, а также некоторые слова, не несущие смысла
+    russian_stopwords.append('гр')
+    russian_stopwords.append('г')
+    russian_stopwords.append('м')
+    russian_stopwords.append('мм')
+    russian_stopwords.append('это')
+    russian_stopwords.append('пока')
+    russian_stopwords.append('очень')
     # приводим токены к нижнему регистру
     tok_text = mystem.lemmatize(text.lower())
     # исключаем пробелы, стоп-слова и знаки пунктуации
@@ -40,7 +48,7 @@ def normalize_text(filename: str):
         keywords_count = []
         print("Эти ключевые слова получены c помощью библиотеки RuTermExtract:")
         for term in term_extractor(result):
-            if term.count > 4:
+            if term.count > 6:
                 print(term.normalized, term.count)
                 keywords.append(term.normalized)
                 keywords_count.append(term.count)
@@ -61,11 +69,14 @@ def normalize_text(filename: str):
 
         # Обработка текста, поиск ключевых слов c помощью метода YAKE
         print("Эти ключевые слова получены c помощью метода YAKE:")
-        kw_extractor = yake.KeywordExtractor()
+        language = "ru" # язык, с которым работаем
+        max_ngram_size = 4 # количество слов в извлекаемом словосочетании. если указать 1, будут извлекаться только отдельные слова
+        numOfKeywords = 7 # общее количество извлекаемых слов
+        kw_extractor = yake.KeywordExtractor(lan=language, n=max_ngram_size, top=numOfKeywords)
         keywords2 = kw_extractor.extract_keywords(result)
         # Выводим извлеченные ключевые слова и вероятность, отражающую степень важности ключевого слова
         for kw in keywords2:
-            print(kw[:10])
+            print(kw)
         # записываем ключевые слова в файл
         keywords2 = [str(i) for i in keywords2]
         keywords2 = " ".join(keywords2)
