@@ -39,12 +39,12 @@ def keywords(filename: str):
     # тематическое моделирование
     vectorizer = TfidfVectorizer()
     tfidf_matrix = vectorizer.fit_transform(reviews2)
-    n_components = 3     # выбор количества тем
+    n_components = 3     # выбор количества тем, меняли их количество, подробнее в отчете 
     lsa = TruncatedSVD(n_components)
     lsa_matrix = lsa.fit_transform(tfidf_matrix)
     terms = np.array(vectorizer.get_feature_names_out())
     for i, topic in enumerate(lsa.components_):
-        top_terms_idx = topic.argsort()[-6:][::-1]  # Получаем топ-6 слов в каждой теме
+        top_terms_idx = topic.argsort()[-6:][::-1]  # Получаем топ-6 слов в каждой теме, количество слов тоже брадли разное
         top_terms = terms[top_terms_idx]
         print(f"Topic {i + 1}: {', '.join(top_terms)}")
 
