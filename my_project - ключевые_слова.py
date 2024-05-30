@@ -70,7 +70,7 @@ def normalize_text(filename: str):
         # Обработка текста, поиск ключевых слов c помощью метода YAKE
         print("Эти ключевые слова получены c помощью метода YAKE:")
         language = "ru" # язык, с которым работаем
-        max_ngram_size = 2 # количество слов в извлекаемом словосочетании. если указать 1, будут извлекаться только отдельные слова
+        max_ngram_size = 2 # количество слов в извлекаемом словосочетании. меняли на 1, 2, 3, 4 
         numOfKeywords = 10 # общее количество извлекаемых слов
         kw_extractor = yake.KeywordExtractor(lan=language, n=max_ngram_size, top=numOfKeywords)
         keywords2 = kw_extractor.extract_keywords(result)
