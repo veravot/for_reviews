@@ -17,13 +17,7 @@ def normalize_text(filename: str):
     mystem = Mystem()
     russian_stopwords = stopwords.words("russian")
     # добавляем в список стоп-слов сокращенные названия мер длины и веса, а также некоторые слова, не несущие смысла
-    russian_stopwords.append('гр')
-    russian_stopwords.append('г')
-    russian_stopwords.append('м')
-    russian_stopwords.append('мм')
-    russian_stopwords.append('это')
-    russian_stopwords.append('пока')
-    russian_stopwords.append('очень')
+    russian_stopwords.extend(['гр', 'г', 'м', 'мм', 'это', 'пока','очень'])
     # приводим токены к нижнему регистру
     tok_text = mystem.lemmatize(text.lower())
     # исключаем пробелы, стоп-слова и знаки пунктуации
