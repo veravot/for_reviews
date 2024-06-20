@@ -21,6 +21,8 @@ def keywords(filename: str):
     for review in reviews:
         mystem = Mystem()
         russian_stopwords = stopwords.words("russian")
+        # добавляем в список стоп-слов сокращенные названия мер длины и веса, а также некоторые слова, не несущие смысла
+        russian_stopwords.extend(['гр', 'г', 'м', 'мм', 'это', 'пока','очень'])
         # приводим токены к нижнему регистру
         tok_text = mystem.lemmatize(review.lower())
         # исключаем пробелы, стоп-слова и знаки пунктуации
